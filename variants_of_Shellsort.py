@@ -75,8 +75,10 @@ def Shellsort2(lst: list):
                         lst[j], lst[j - d] = lst[j - d], lst[j]
                     else:
                         break
-        if d > 1:
-            d = int(d // RHO_PLUS_1) if d > 4 else 1
+        if d > 4:
+            d = int(d // RHO_PLUS_1)
+        elif d > 1:
+            d = 1
         else:
             return
 
@@ -93,16 +95,18 @@ def inverted_Shellsort2(lst: list):
                         lst[j], lst[j - d] = lst[j - d], lst[j]
                     else:
                         break
-        if d > 1:
-            d = int(d // RHO_PLUS_1) if d > 4 else 1
+        if d > 4:
+            d = int(d // RHO_PLUS_1)
+        elif d > 1:
+            d = 1
         else:
             return
 
 
 def Shellsort3(lst: list):
     n = len(lst)
-    d = ((1 << n.bit_length()) >> 1) + 1 if n else 0
-    while d > 2:
+    d = ((1 << n.bit_length()) >> 1) + 1
+    while True:
         for i in range(n - d):
             if lst[i] > lst[i + d]:
                 lst[i + d], lst[i] = lst[i], lst[i + d]
@@ -111,22 +115,18 @@ def Shellsort3(lst: list):
                         lst[j], lst[j - d] = lst[j - d], lst[j]
                     else:
                         break
-        d = (d >> 1) + 1
-
-    for i in range(n - 1):
-        if lst[i] > lst[i + 1]:
-            lst[i + 1], lst[i] = lst[i], lst[i + 1]
-            for j in range(i, 0, -1):
-                if lst[j - 1] > lst[j]:
-                    lst[j], lst[j - 1] = lst[j - 1], lst[j]
-                else:
-                    break
+        if d > 3:
+            d = (d >> 1) + 1
+        elif d > 1:
+            d = 1
+        else:
+            return
 
 
 def inverted_Shellsort3(lst: list):
     n = len(lst)
-    d = ((1 << n.bit_length()) >> 1) + 1 if n else 0
-    while d > 2:
+    d = ((1 << n.bit_length()) >> 1) + 1
+    while True:
         for i in range(n - 1, d - 1, -1):
             if lst[i - d] > lst[i]:
                 lst[i], lst[i - d] = lst[i - d], lst[i]
@@ -135,16 +135,12 @@ def inverted_Shellsort3(lst: list):
                         lst[j], lst[j - d] = lst[j - d], lst[j]
                     else:
                         break
-        d = (d >> 1) + 1
-
-    for i in range(n - 1, 0, -1):
-        if lst[i - 1] > lst[i]:
-            lst[i], lst[i - 1] = lst[i - 1], lst[i]
-            for j in range(i + 1, n):
-                if lst[j - 1] > lst[j]:
-                    lst[j], lst[j - 1] = lst[j - 1], lst[j]
-                else:
-                    break
+        if d > 3:
+            d = (d >> 1) + 1
+        elif d > 1:
+            d = 1
+        else:
+            return
 
 
 def Shellsort4(lst: list):
