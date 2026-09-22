@@ -30,7 +30,7 @@ Every non-swap-based algorithm family is cross-implemented using three distinct 
 #### Core Algorithm Families:
 
 * **Standard & Inverted insertion sort:** Forward-scanning insertion contrasted against backward-scanning (right-to-left) implementations, both generating sorted lists in ascending order.
-* **With binary search (`_wbs`):** Reduces position-lookup complexity from \(\mathcal{O}(n)\) to \(\mathcal{O}(\log n)\) using an overflow-avoidant midpoint calculation, maximizing language-agnostic portability.
+* **With binary search (`_wbs`):** Reduces position-lookup complexity from `O(n)` to `O(log n)` using an overflow-avoidant midpoint calculation, maximizing language-agnostic portability.
 * **Merge-like insertion sort:** Recursive variations that split the list in half (resembling top-down merge sort) and leverage the pre-sorted state of sublists during the merge phase.
 * **Unidirectional variations:** Algorithms that strictly scan elements from a fixed direction to determine the correct insertion position.
 
@@ -51,7 +51,7 @@ Except for `Shellsort2` and `Shellsort6`, these implementations analyze gap sequ
 * **`Shellsort3`:** The Papernov-Stasevich sequence based on numbers of the form $2^k + 1$.
 * **`Shellsort4`:** Knuth's sequence $(3^k - 1) / 2$.
 * **`Shellsort5`:** A sequence composed of the integers $1, 3, 5, 11, 21, 43, \dots$.
-* **`Shellsort6`:** Sedgewick's sequence $4^k + 3 \cdot 2^{k - 1} + 1$.
+* **`Shellsort6`:** Sedgewick's sequence based on numbers of the form $4^k + 3 \cdot 2^{k - 1} + 1$.
 
 ---
 
