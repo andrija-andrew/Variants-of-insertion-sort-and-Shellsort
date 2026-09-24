@@ -885,7 +885,7 @@ if __name__ == '__main__':
                 start = timer()
                 f(lst_copy, 0, len(lst_copy))
                 end = timer()
-            print(f'{f.__name__:55}{f"{end - start:.7f}":>12} seconds')
+            print(f'{f.__name__:60}{f"{end - start:.7f}":>12} seconds')
 
 
     n_list = [   10_000,    20_000]
@@ -935,15 +935,15 @@ if __name__ == '__main__':
     ]
     #'''
     for n in n_list:
-        print(f'\n{f"---- The following tests are for lists of size {n:^9} ----":^75}')
+        print(f'\n{f"---- The following benchmarks are for lists of size {n:^9} ----":^80}\n')
 
-        print(f'\n{"Test for a list of uniformly distributed random integers":^75}\n')
+        print(f'\n{"Test for a list of uniformly distributed random integers":^80}\n')
         a = 0
         b = n * 10
         lst = [random.randint(a, b) for i in range(n)]
         run_test(f_list, lst)
 
-        print(f'\n{"Test for a list of normally distributed random integers":^75}\n')
+        print(f'\n{"Test for a list of normally distributed random integers":^80}\n')
         m = 100
         st_dev = 9
         lst = [math.trunc(random.gauss(m, st_dev)) for i in range(n)]
@@ -952,30 +952,32 @@ if __name__ == '__main__':
         ratio_unsorted = 0.1
         n_unsorted = round(ratio_unsorted * n)
         if n_unsorted:
-            print(f'\n{"Test for the sorted list of integers extended with an unsorted list":^75}\n')
+            print(f'\n{"Test for the sorted list of integers extended with an unsorted list":^80}\n')
             n_unsorted_div_2 = n_unsorted >> 1
             lst = list(range(n_unsorted_div_2, n - n_unsorted_div_2))
             lst.extend([random.randint(0, n - 1) for i in range(n_unsorted)])
             run_test(f_list, lst)
 
-        print(f'\n{"Test for a reverse-sorted list of distinct integers":^75}\n')
+        print(f'\n{"Test for a reverse-sorted list of distinct integers":^80}\n')
         lst = list(range(n - 1, -1, -1))
         run_test(f_list, lst)
 
-        print(f'\n{"Test for an interleaved list of distinct integers":^75}\n')
+        print(f'\n{"Test for an interleaved list of distinct integers":^80}\n')
         lst = list(range(n))
         lst[(n & 1) ^ 1::2] = lst[::-2]
         run_test(f_list, lst)
 
-        print(f"""\n{'Test for the "pipe organ" list of integers':^75}\n""")
+        print(f"""\n{'Test for the "pipe organ" list of integers':^80}\n""")
         lst = list(range((n + 1) >> 1))
         lst.extend(range((n >> 1) - 1, -1, -1))
         run_test(f_list, lst)
 
-        print(f'\n{"Test for the sorted list of distinct integers":^75}\n')
+        print(f'\n{"Test for the sorted list of distinct integers":^80}\n')
         lst = list(range(n))
         run_test(f_list, lst)
 
-        print(f'\n{"Test for the constant list":^75}\n')
+        print(f'\n{"Test for the constant list":^80}\n')
         lst = [0] * n
         run_test(f_list, lst)
+
+        print()
