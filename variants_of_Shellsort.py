@@ -35,7 +35,7 @@ def inverted_Shellsort0(lst: list):
 
 def Shellsort1(lst: list):
     n = len(lst)
-    d = (1 << (n >> 1).bit_length()) - 1
+    d = (1 << (n.bit_length() - 1)) - 1 if n > 1 else 0
     while d:
         for i in range(n - d):
             if lst[i] > lst[i + d]:
@@ -50,7 +50,7 @@ def Shellsort1(lst: list):
 
 def inverted_Shellsort1(lst: list):
     n = len(lst)
-    d = (1 << (n >> 1).bit_length()) - 1
+    d = (1 << (n.bit_length() - 1)) - 1 if n > 1 else 0
     while d:
         for i in range(n - 1, d - 1, -1):
             if lst[i - d] > lst[i]:
@@ -113,40 +113,38 @@ def inverted_Shellsort2(lst: list):
 
 def Shellsort3(lst: list):
     n = len(lst)
-    if n > 1:
-        d = (1 << ((n >> 1) - 1).bit_length()) | 1
-        while True:
-            for i in range(n - d):
-                if lst[i] > lst[i + d]:
-                    lst[i + d], lst[i] = lst[i], lst[i + d]
-                    for j in range(i, d - 1, -d):
-                        if lst[j - d] > lst[j]:
-                            lst[j], lst[j - d] = lst[j - d], lst[j]
-                        else:
-                            break
-            if d > 1:
-                d = (d >> 1) | 1
-            else:
-                return
+    d = (1 << ((n - 2).bit_length() - 1)) | 1 if n > 3 else 1
+    while True:
+        for i in range(n - d):
+            if lst[i] > lst[i + d]:
+                lst[i + d], lst[i] = lst[i], lst[i + d]
+                for j in range(i, d - 1, -d):
+                    if lst[j - d] > lst[j]:
+                        lst[j], lst[j - d] = lst[j - d], lst[j]
+                    else:
+                        break
+        if d > 1:
+            d = (d >> 1) | 1
+        else:
+            return
 
 
 def inverted_Shellsort3(lst: list):
     n = len(lst)
-    if n > 1:
-        d = (1 << ((n >> 1) - 1).bit_length()) | 1
-        while True:
-            for i in range(n - 1, d - 1, -1):
-                if lst[i - d] > lst[i]:
-                    lst[i], lst[i - d] = lst[i - d], lst[i]
-                    for j in range(i + d, n, d):
-                        if lst[j - d] > lst[j]:
-                            lst[j], lst[j - d] = lst[j - d], lst[j]
-                        else:
-                            break
-            if d > 1:
-                d = (d >> 1) | 1
-            else:
-                return
+    d = (1 << ((n - 2).bit_length() - 1)) | 1 if n > 3 else 1
+    while True:
+        for i in range(n - 1, d - 1, -1):
+            if lst[i - d] > lst[i]:
+                lst[i], lst[i - d] = lst[i - d], lst[i]
+                for j in range(i + d, n, d):
+                    if lst[j - d] > lst[j]:
+                        lst[j], lst[j - d] = lst[j - d], lst[j]
+                    else:
+                        break
+        if d > 1:
+            d = (d >> 1) | 1
+        else:
+            return
 
 
 def Shellsort4(lst: list):
@@ -208,7 +206,7 @@ def inverted_Shellsort5(lst: list):
 def Shellsort6(lst: list):
     n = len(lst)
     for k in range((n >> 1).bit_length() >> 1, 0, -1):
-        d = ((3 << k) >> 1) + (1 << (k << 1)) + 1
+        d = (3 << (k - 1)) + (1 << (k + k)) + 1
         for i in range(n - d):
             if lst[i] > lst[i + d]:
                 lst[i + d], lst[i] = lst[i], lst[i + d]
@@ -231,7 +229,7 @@ def Shellsort6(lst: list):
 def inverted_Shellsort6(lst: list):
     n = len(lst)
     for k in range((n >> 1).bit_length() >> 1, 0, -1):
-        d = ((3 << k) >> 1) + (1 << (k << 1)) + 1
+        d = (3 << (k - 1)) + (1 << (k + k)) + 1
         for i in range(n - 1, d - 1, -1):
             if lst[i - d] > lst[i]:
                 lst[i], lst[i - d] = lst[i - d], lst[i]
