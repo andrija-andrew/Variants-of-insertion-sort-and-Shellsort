@@ -205,7 +205,7 @@ def inverted_Shellsort5(lst: list):
 
 def Shellsort6(lst: list):
     n = len(lst)
-    for k in range((n >> 1).bit_length() >> 1, 0, -1):
+    for k in range((n.bit_length() - 1) >> 1 if n > 8 else 0, 0, -1):
         d = (3 << (k - 1)) + (1 << (k + k)) + 1
         for i in range(n - d):
             if lst[i] > lst[i + d]:
@@ -228,7 +228,7 @@ def Shellsort6(lst: list):
 
 def inverted_Shellsort6(lst: list):
     n = len(lst)
-    for k in range((n >> 1).bit_length() >> 1, 0, -1):
+    for k in range((n.bit_length() - 1) >> 1 if n > 8 else 0, 0, -1):
         d = (3 << (k - 1)) + (1 << (k + k)) + 1
         for i in range(n - 1, d - 1, -1):
             if lst[i - d] > lst[i]:
@@ -247,6 +247,34 @@ def inverted_Shellsort6(lst: list):
                     lst[j], lst[j - 1] = lst[j - 1], lst[j]
                 else:
                     break
+
+
+def Shellsort7(lst: list):
+    n = len(lst)
+    for k in range(int(math.log(n * (5 / 9), 2.25)) + 1 if n else 0, 0, -1):
+        d = math.ceil((2.25 ** k - 1.0) / 1.25)
+        for i in range(n - d):
+            if lst[i] > lst[i + d]:
+                lst[i + d], lst[i] = lst[i], lst[i + d]
+                for j in range(i, d - 1, -d):
+                    if lst[j - d] > lst[j]:
+                        lst[j], lst[j - d] = lst[j - d], lst[j]
+                    else:
+                        break
+
+
+def inverted_Shellsort7(lst: list):
+    n = len(lst)
+    for k in range(int(math.log(n * (5 / 9), 2.25)) + 1 if n else 0, 0, -1):
+        d = math.ceil((2.25 ** k - 1.0) / 1.25)
+        for i in range(n - 1, d - 1, -1):
+            if lst[i - d] > lst[i]:
+                lst[i], lst[i - d] = lst[i - d], lst[i]
+                for j in range(i + d, n, d):
+                    if lst[j - d] > lst[j]:
+                        lst[j], lst[j - d] = lst[j - d], lst[j]
+                    else:
+                        break
 
 
 if __name__ == '__main__':
@@ -272,7 +300,8 @@ if __name__ == '__main__':
         Shellsort3, inverted_Shellsort3,
         Shellsort4, inverted_Shellsort4,
         Shellsort5, inverted_Shellsort5,
-        Shellsort6, inverted_Shellsort6
+        Shellsort6, inverted_Shellsort6,
+        Shellsort7, inverted_Shellsort7
     ]
 
     for n in n_list:
