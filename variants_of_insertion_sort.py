@@ -946,7 +946,7 @@ if __name__ == '__main__':
         print(f'\n{"Test for a list of normally distributed random integers":^80}\n')
         m = 100
         st_dev = 9
-        lst = [math.trunc(random.gauss(m, st_dev)) for i in range(n)]
+        lst = [round(random.gauss(m, st_dev)) for i in range(n)]
         run_test(f_list, lst)
 
         ratio_unsorted = 0.1
@@ -969,7 +969,7 @@ if __name__ == '__main__':
 
         print(f"""\n{'Test for the "pipe organ" list of integers':^80}\n""")
         lst = list(range((n + 1) >> 1))
-        lst.extend(range((n >> 1) - 1, -1, -1))
+        lst.extend(range((n - 2) >> 1, -1, -1))
         run_test(f_list, lst)
 
         print(f'\n{"Test for the sorted list of distinct integers":^80}\n')

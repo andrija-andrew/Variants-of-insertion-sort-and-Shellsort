@@ -205,8 +205,8 @@ def inverted_Shellsort5(lst: list):
 
 def Shellsort6(lst: list):
     n = len(lst)
-    for k in range((n.bit_length() - 1) >> 1 if n > 8 else 0, 0, -1):
-        d = (3 << (k - 1)) + (1 << (k + k)) + 1
+    for k in range((n.bit_length() - 4) >> 1, -1, -1):
+        d = (((4 << k) | 3) << k) + 1
         for i in range(n - d):
             if lst[i] > lst[i + d]:
                 lst[i + d], lst[i] = lst[i], lst[i + d]
@@ -228,8 +228,8 @@ def Shellsort6(lst: list):
 
 def inverted_Shellsort6(lst: list):
     n = len(lst)
-    for k in range((n.bit_length() - 1) >> 1 if n > 8 else 0, 0, -1):
-        d = (3 << (k - 1)) + (1 << (k + k)) + 1
+    for k in range((n.bit_length() - 4) >> 1, -1, -1):
+        d = (((4 << k) | 3) << k) + 1
         for i in range(n - 1, d - 1, -1):
             if lst[i - d] > lst[i]:
                 lst[i], lst[i - d] = lst[i - d], lst[i]
@@ -251,30 +251,32 @@ def inverted_Shellsort6(lst: list):
 
 def Shellsort7(lst: list):
     n = len(lst)
-    for k in range(int(math.log(n * (5 / 9), 2.25)) + 1 if n else 0, 0, -1):
-        d = math.ceil((2.25 ** k - 1.0) / 1.25)
-        for i in range(n - d):
-            if lst[i] > lst[i + d]:
-                lst[i + d], lst[i] = lst[i], lst[i + d]
-                for j in range(i, d - 1, -d):
-                    if lst[j - d] > lst[j]:
-                        lst[j], lst[j - d] = lst[j - d], lst[j]
-                    else:
-                        break
+    if n:
+        for k in range(int(math.log(n * (5 / 9), 2.25)) + 1, 0, -1):
+            d = math.ceil((2.25 ** k - 1.0) / 1.25)
+            for i in range(n - d):
+                if lst[i] > lst[i + d]:
+                    lst[i + d], lst[i] = lst[i], lst[i + d]
+                    for j in range(i, d - 1, -d):
+                        if lst[j - d] > lst[j]:
+                            lst[j], lst[j - d] = lst[j - d], lst[j]
+                        else:
+                            break
 
 
 def inverted_Shellsort7(lst: list):
     n = len(lst)
-    for k in range(int(math.log(n * (5 / 9), 2.25)) + 1 if n else 0, 0, -1):
-        d = math.ceil((2.25 ** k - 1.0) / 1.25)
-        for i in range(n - 1, d - 1, -1):
-            if lst[i - d] > lst[i]:
-                lst[i], lst[i - d] = lst[i - d], lst[i]
-                for j in range(i + d, n, d):
-                    if lst[j - d] > lst[j]:
-                        lst[j], lst[j - d] = lst[j - d], lst[j]
-                    else:
-                        break
+    if n:
+        for k in range(int(math.log(n * (5 / 9), 2.25)) + 1, 0, -1):
+            d = math.ceil((2.25 ** k - 1.0) / 1.25)
+            for i in range(n - 1, d - 1, -1):
+                if lst[i - d] > lst[i]:
+                    lst[i], lst[i - d] = lst[i - d], lst[i]
+                    for j in range(i + d, n, d):
+                        if lst[j - d] > lst[j]:
+                            lst[j], lst[j - d] = lst[j - d], lst[j]
+                        else:
+                            break
 
 
 if __name__ == '__main__':
@@ -316,7 +318,7 @@ if __name__ == '__main__':
         print(f'\n{"Test for a list of normally distributed random integers":^80}\n')
         m = 100
         st_dev = 9
-        lst = [math.trunc(random.gauss(m, st_dev)) for i in range(n)]
+        lst = [round(random.gauss(m, st_dev)) for i in range(n)]
         run_test(f_list, lst)
 
         ratio_unsorted = 0.1
@@ -339,7 +341,7 @@ if __name__ == '__main__':
 
         print(f"""\n{'Test for the "pipe organ" list of integers':^80}\n""")
         lst = list(range((n + 1) >> 1))
-        lst.extend(range((n >> 1) - 1, -1, -1))
+        lst.extend(range((n - 2) >> 1, -1, -1))
         run_test(f_list, lst)
 
         print(f'\n{"Test for the sorted list of distinct integers":^80}\n')

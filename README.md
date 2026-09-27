@@ -43,7 +43,7 @@ Every non-swap-based algorithm family is cross-implemented using three distinct 
 
 ### 2. Shellsort Variations (`variants_of_Shellsort.py`)
 
-Except for `Shellsort2`, `Shellsort6`, and `Shellsort7`, these implementations analyze gap sequences given in Keith McLuckie & Angus Barber's book, *Sorting Routines for Microcomputers* (Macmillan Education UK, 1986).
+Except for `Shellsort2`, `Shellsort6`, and `Shellsort7`, these implementations analyze gap sequences given in Keith McLuckie & Angus Barber's book, *Sorting Routines for Microcomputers* (Macmillan Education UK, 1986). Special care has been taken to make all routines easily portable to other programming languages, utilizing bit-level operations and robust bounds to prevent potential calculation and integer overflows.
 
 * **`Shellsort0`:** The original diminishing increment sequence $\lfloor n/2^k \rfloor$ by Donald Shell.
 * **`Shellsort1`:** A frequently used Hibbard's sequence $2^k - 1$.
@@ -51,8 +51,8 @@ Except for `Shellsort2`, `Shellsort6`, and `Shellsort7`, these implementations a
 * **`Shellsort3`:** The Papernov-Stasevich sequence based on numbers of the form $2^k + 1$.
 * **`Shellsort4`:** Knuth's sequence $(3^k - 1) / 2$.
 * **`Shellsort5`:** A sequence composed of the integers $1, 3, 5, 11, 21, 43, \dots$.
-* **`Shellsort6`:** Sedgewick's sequence based on numbers of the form $4^k + 3 \cdot 2^{k - 1} + 1$.
-* **`Shellsort7`:** Tokuda's sequence $\lceil\frac{(9/4)^k - 1}{(9/4) - 1}\rceil$.
+* **`Shellsort6`:** Sedgewick's sequence based on numbers of the form $4^{k + 1} + 3 \cdot 2^k + 1$.
+* **`Shellsort7`:** Tokuda's sequence $\left\lceil\frac{(9/4)^k - 1}{(9/4) - 1}\right\rceil$.
 
 ---
 
